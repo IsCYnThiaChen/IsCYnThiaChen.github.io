@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cynthia Chen — Game Design × Data Science</title>
+<meta name="description" content="Cynthia Chen (Yutong Chen), NYU game design and data science double major, focused on game UA creative and data-driven growth.">
+<style>
+  :root {
+    --bg: #faf9f7;
+    --surface: #ffffff;
+    --ink: #1a1a1a;
+    --ink-soft: #55524e;
+    --ink-faint: #8a8681;
+    --accent: #c8553d;
+    --accent-deep: #a03d28;
+    --line: #e7e3dd;
+    --tag-bg: #f2efe9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", -apple-system, "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 110px 32px 90px;
+  }
+  .hero-kicker {
+    font-size: 13px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 26px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 64px);
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    line-height: 1.15;
+  }
+  .hero h1 .latin {
+    display: block;
+    font-family: Georgia, serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(22px, 3.4vw, 30px);
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
+  .hero-sub {
+    margin-top: 34px;
+    font-size: 18px;
+    color: var(--ink-soft);
+    max-width: 620px;
+  }
+  .hero-tags {
+    margin-top: 34px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .tag {
+    background: var(--tag-bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 7px 16px;
+    font-size: 13.5px;
+    color: var(--ink-soft);
+  }
+  .tag.hot { background: #fdf0ec; border-color: #f0d5cd; color: var(--accent-deep); }
+
+  /* ===== Sections ===== */
+  section { max-width: 860px; margin: 0 auto; padding: 36px 32px; }
+  .section-title {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 38px;
+  }
+  .section-title .num {
+    font-family: Georgia, serif;
+    font-size: 15px;
+    color: var(--accent);
+  }
+  .section-title h2 {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .section-title .en-sub {
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+  }
+
+  /* ===== About: visual cards ===== */
+  .about-lead {
+    font-size: 17.5px;
+    color: var(--ink-soft);
+    max-width: 680px;
+    margin-bottom: 34px;
+  }
+  .about-lead strong { color: var(--ink); font-weight: 600; }
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 18px;
+  }
+  .fact-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px 22px 18px;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .fact-card:hover { box-shadow: 0 12px 32px rgba(26,26,26,.07); transform: translateY(-2px); }
+  .fact-card .fact-icon { font-size: 26px; margin-bottom: 10px; }
+  .fact-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+  .fact-card p { font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+  .fact-card .fact-line {
+    font-size: 12px;
+    color: var(--accent-deep);
+    font-weight: 600;
+    margin-top: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  /* Game header with icon */
+  .game-head { display: flex; align-items: center; gap: 14px; flex: 1; min-width: 0; }
+  .game-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(26,26,26,.12);
+    flex-shrink: 0;
+  }
+  .xp-head a { color: inherit; text-decoration: none; }
+  .xp-head a:hover { color: var(--accent-deep); }
+
+  /* Experience cards */
+  .xp {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 34px 36px;
+    margin-bottom: 24px;
+    transition: box-shadow .25s ease, transform .25s ease;
+  }
+  .xp:hover { box-shadow: 0 12px 32px rgba(26,26,26,.07); transform: translateY(-2px); }
+  .xp-head { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .xp-head h3 { font-size: 19px; font-weight: 700; }
+  .xp-head .time { font-size: 13.5px; color: var(--ink-faint); }
+  .xp-role { font-size: 14.5px; color: var(--accent-deep); font-weight: 600; margin-bottom: 16px; }
+  .xp ul { list-style: none; }
+  .xp li {
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 10px;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+  .xp li::before {
+    content: "";
+    position: absolute;
+    left: 2px; top: 11px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .xp li strong { color: var(--ink); font-weight: 600; }
+
+  /* Video showcase row */
+  .video-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .video-cell video {
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    object-fit: cover;
+    border-radius: 12px;
+    background: #000;
+    display: block;
+  }
+  .video-label {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  @media (max-width: 640px) {
+    .video-row { grid-template-columns: repeat(2, 1fr); }
+    .shot-row { grid-template-columns: 1fr; }
+  }
+
+  /* Screenshot rows (16:9) */
+  .shot-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .shot-row.duo { grid-template-columns: repeat(2, 1fr); }
+  .shot-cell img {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 1px solid var(--line);
+    display: block;
+    transition: transform .25s ease;
+  }
+  .shot-cell img:hover { transform: scale(1.02); }
+  .shot-label {
+    font-size: 11.5px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+
+  /* Skills */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 22px;
+  }
+  .skill-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 28px;
+  }
+  .skill-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+  .skill-card ul { list-style: none; }
+  .skill-card li {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    padding: 5px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .skill-card li:last-child { border-bottom: none; }
+
+  /* Contact */
+  .contact {
+    text-align: center;
+    padding-bottom: 120px;
+  }
+  .contact h2 { font-size: 30px; font-weight: 700; margin-bottom: 14px; }
+  .contact p { color: var(--ink-soft); font-size: 16px; margin-bottom: 34px; }
+  .contact-links { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+  .contact-links a {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 999px;
+    font-size: 15px;
+    text-decoration: none;
+    transition: all .2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: var(--accent-deep); }
+  .btn-ghost { border: 1.5px solid var(--ink); color: var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff; }
+
+  footer {
+    text-align: center;
+    padding: 30px 32px 44px;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+    border-top: 1px solid var(--line);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .divider {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+  .divider::before {
+    content: "✦ ✦ ✦";
+    display: block;
+    text-align: center;
+    color: var(--accent);
+    font-size: 12px;
+    letter-spacing: 14px;
+    padding: 18px 0 6px;
+  }
+
+  @media (max-width: 560px) {
+    .hero { padding-top: 80px; }
+    .xp { padding: 26px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <p class="hero-kicker">Game Design × Data Science</p>
+  <h1>Cynthia Chen<span class="latin">— Yutong Chen · NYU · Game Design &amp; Data Science</span></h1>
+  <p class="hero-sub">A gamer who understands content, and an analyst who understands data. I work at the intersection of creative game design and rigorous analytics to find answers that drive growth.</p>
+  <div class="hero-tags">
+    <span class="tag hot">UA Creative</span>
+    <span class="tag">Game Design</span>
+    <span class="tag">Data Analysis</span>
+    <span class="tag">AI Workflows</span>
+    <span class="tag">AIGC Creative Assets</span>
+  </div>
+</header>
+
+<section class="about">
+  <div class="section-title">
+    <span class="num">01</span>
+    <h2>About Me</h2>
+    <span class="en-sub">Who I Am</span>
+  </div>
+  <p class="about-lead">I'm <strong>Cynthia Chen (陈语桐)</strong> — an NYU double major in <strong>Game Design</strong> and <strong>Data Science</strong> who turned two internships into a simple loop: <strong>use data to decide what creative to make next.</strong></p>
+  <div class="about-grid">
+    <div class="fact-card">
+      <div class="fact-icon">🎓</div>
+      <h3>Education</h3>
+      <p>NYU · BFA Game Design &amp; BA Data Science, minor in Entertainment, Media &amp; Tech Business.</p>
+      <p class="fact-line">GPA 3.872 · Dean's List 2025</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-icon">🎮</div>
+      <h3>Where I Sit</h3>
+      <p>UA Creative: the bridge between what makes gameplay fun and what makes an ad stop the scroll.</p>
+      <p class="fact-line">Content intuition × data rigor</p>
+    </div>
+    <div class="fact-card">
+      <div class="fact-icon">🤖</div>
+      <h3>AI User</h3>
+      <p>Use AI to optimize creative production workflow, and create automated data analysis tools.</p>
+      <p class="fact-line">Built 3 AI tools at Tencent</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section>
+  <div class="section-title">
+    <span class="num">02</span>
+    <h2>Experience</h2>
+    <span class="en-sub">Internships</span>
+  </div>
+
+  <article class="xp">
+    <div class="xp-head">
+      <div class="game-head">
+        <img class="game-icon" src="assets/arrows-icon.png" alt="Arrows: Puzzle Escape game icon">
+        <h3><a href="https://play.google.com/store/apps/details?id=com.ecffri.arrows" target="_blank" rel="noopener">Tencent · Overseas UA Creative ↗</a></h3>
+      </div>
+      <span class="time">May – Aug 2026</span>
+    </div>
+    <p class="xp-role">UA Creative Planning &amp; Data Analysis Intern · "Arrows: Puzzle Escape"</p>
+    <ul>
+      <li><strong>Creative production:</strong> 120 assets/month — ~8% of volume driving 12% of spend and 11% of installs; 9 assets in Top 100 by spend (one at #3).</li>
+      <li><strong>Data analysis:</strong> Automated spend-efficiency analytics across 5 media sources and ~8,500 creatives, by creative-tag dimensions.</li>
+      <li><strong>AI workflows:</strong> Built and deployed 3 AI tools — creative-direction management for a team of 8, cross-channel data analysis, overseas studio collaboration.</li>
+    </ul>
+    <div class="video-row">
+      <div class="video-cell">
+        <video src="videos/creative-01.mp4" poster="videos/creative-01-poster.jpg" controls muted playsinline preload="metadata" loop></video>
+        <p class="video-label">Creative 01</p>
+      </div>
+      <div class="video-cell">
+        <video src="videos/creative-02.mp4" poster="videos/creative-02-poster.jpg" controls muted playsinline preload="metadata" loop></video>
+        <p class="video-label">Creative 02</p>
+      </div>
+      <div class="video-cell">
+        <video src="videos/creative-03.mp4" poster="videos/creative-03-poster.jpg" controls muted playsinline preload="metadata" loop></video>
+        <p class="video-label">Creative 03</p>
+      </div>
+      <div class="video-cell">
+        <video src="videos/creative-04.mp4" poster="videos/creative-04-poster.jpg" controls muted playsinline preload="metadata" loop></video>
+        <p class="video-label">Creative 04</p>
+      </div>
+    </div>
+  </article>
+
+  <article class="xp">
+    <div class="xp-head">
+      <div class="game-head">
+        <img class="game-icon" src="assets/justdance-icon.webp" alt="Just Dance: Party game icon">
+        <h3><a href="https://justdance.fandom.com/wiki/Just_Dance:_Party" target="_blank" rel="noopener">Ubisoft ↗</a></h3>
+      </div>
+      <span class="time">Jul 2025 – Jan 2026</span>
+    </div>
+    <p class="xp-role">Level Design Intern · "Just Dance: Party" · Shanghai</p>
+    <ul>
+      <li><strong>Workflow optimization:</strong> Proposed improvements and designed UI prototypes with programmers — production efficiency +20%.</li>
+      <li><strong>Level systems:</strong> Designed scoring systems for 35 song levels in Unity, delivered 2 weeks ahead of sprint milestone.</li>
+      <li><strong>Cross-functional UI:</strong> Optimized scoring-system visuals with artists and programmers via new in-game UI design.</li>
+    </ul>
+  </article>
+</section>
+
+<section>
+  <div class="section-title">
+    <span class="num">03</span>
+    <h2>Project Experience</h2>
+    <span class="en-sub">Selected Work</span>
+  </div>
+  <div class="xp-grid">
+    <article class="xp">
+      <div class="xp-head">
+        <h3><a href="https://cynthia-chen.itch.io/cooked-order-up" target="_blank" rel="noopener">Cooked: Order Up! ↗</a></h3>
+        <span class="time">Jan – May 2026</span>
+      </div>
+      <p class="xp-role">Project Manager · Student Game Studio Project</p>
+      <ul>
+        <li><strong>Sprint planning:</strong> Built the sprint workflow — backlogs, art asset lists, bug lists, design docs — keeping deliverables on track.</li>
+        <li><strong>Cross-functional lead:</strong> Clarified responsibilities across programmers, designers and artists; surfaced dependencies; drove scope decisions.</li>
+        <li><strong>Quality control:</strong> Ran mid-sprint playtests and pre-deadline "Hot Fix Day" QA with documented repro steps and asset verification.</li>
+      </ul>
+      <div class="shot-row">
+        <div class="shot-cell">
+          <img src="assets/cooked-1.png" alt="Cooked: Order Up gameplay screenshot — dish score screen" loading="lazy">
+          <p class="shot-label">Score &amp; Rank</p>
+        </div>
+        <div class="shot-cell">
+          <img src="assets/cooked-2.png" alt="Cooked: Order Up gameplay screenshot" loading="lazy">
+          <p class="shot-label">Gameplay</p>
+        </div>
+        <div class="shot-cell">
+          <img src="assets/cooked-3.png" alt="Cooked: Order Up gameplay screenshot" loading="lazy">
+          <p class="shot-label">Gameplay</p>
+        </div>
+        <div class="shot-cell">
+          <img src="assets/cooked-4.png" alt="Cooked: Order Up gameplay screenshot" loading="lazy">
+          <p class="shot-label">Gameplay</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="xp">
+      <div class="xp-head">
+        <h3>AI Workflow Optimization</h3>
+        <span class="time">Tencent · 2026</span>
+      </div>
+      <p class="xp-role">3 Self-Built AI Tools for UA Creative &amp; Analytics</p>
+      <ul>
+        <li><strong>Creative Direction Dashboard:</strong> Live tracker for monthly asset targets vs. completion, creative-tag distribution and weekly new-asset focus — replacing manual spreadsheet screening for an 8-person team.</li>
+        <li><strong>UA Analytics Toolkit:</strong> Turned the cross-channel "visualize → attribute → optimize" flow into a reusable toolkit — overview, per-channel and creative-tag analysis pages — covering 5 media sources and ~8,500 creatives.</li>
+        <li><strong>Impact:</strong> Faster creative-direction calls, reusable batch-processable analysis, and a shared dashboard bridging creative and product perspectives.</li>
+      </ul>
+      <div class="shot-row duo">
+        <div class="shot-cell">
+          <img src="assets/ai-creative-dashboard.png" alt="AI Creative Direction Dashboard — monthly asset progress and creative tag summary" loading="lazy">
+          <p class="shot-label">Creative Direction Dashboard</p>
+        </div>
+        <div class="shot-cell">
+          <img src="assets/ai-analytics-dashboard.png" alt="Arrows UA Creative Analysis Report — spend efficiency dashboard" loading="lazy">
+          <p class="shot-label">UA Creative Analysis Report</p>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="section-title">
+    <span class="num">04</span>
+    <h2>Skill Stack</h2>
+    <span class="en-sub">What I Bring</span>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <h3>🎮 Content</h3>
+      <ul>
+        <li>Game design theory &amp; player psychology</li>
+        <li>UA creative concepting &amp; scripting</li>
+        <li>Gameplay / level mechanic analysis</li>
+        <li>AIGC creative asset production</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3>📊 Data</h3>
+      <ul>
+        <li>Campaign metrics analysis (IPM / CPI / CPM)</li>
+        <li>Creative spend &amp; attribution analysis</li>
+        <li>Python / PyTorch data processing</li>
+        <li>Visualization &amp; structured reporting</li>
+      </ul>
+    </div>
+    <div class="skill-card">
+      <h3>🤖 AI &amp; Engineering</h3>
+      <ul>
+        <li>AI automation tooling</li>
+        <li>AI-assisted creative workflow design</li>
+        <li>PyTorch fundamentals &amp; vectorization</li>
+        <li>Bilingual cross-cultural collaboration</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<section class="contact">
+  <h2>Get in Touch</h2>
+  <p>If you're interested in game UA, data analysis, or AI-assisted creative workflows, I'd love to connect.</p>
+  <div class="contact-links">
+    <a class="btn-primary" href="mailto:chenyutong0421@gmail.com">Email Me</a>
+    <a class="btn-ghost" href="https://www.linkedin.com/in/yutong-chen" target="_blank" rel="noopener">LinkedIn</a>
+  </div>
+</section>
+
+<footer>© 2026 Cynthia Chen. All rights reserved.</footer>
+
+</body>
+</html>
